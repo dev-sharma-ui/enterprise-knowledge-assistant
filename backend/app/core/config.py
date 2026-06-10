@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str
 
     SECRET_KEY: str
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
 
     DATABASE_HOST: str
     DATABASE_PORT: int

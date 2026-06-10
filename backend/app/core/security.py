@@ -27,9 +27,6 @@ def verify_password(
     )
 
 
-ALGORITHM = "HS256"
-
-
 def create_access_token(
     subject: str,
     expires_delta: timedelta | None = None
@@ -38,7 +35,12 @@ def create_access_token(
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.now(timezone.utc) + timedelta(hours=24)
+        expire = (
+            datetime.now(timezone.utc)
+            + timedelta(
+                minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+            )
+        )
 
     payload: dict[str, Any] = {
         "sub": subject,
@@ -48,5 +50,5 @@ def create_access_token(
     return jwt.encode(
         payload,
         settings.SECRET_KEY,
-        algorithm=ALGORITHM
+        algorithm=settings.ALGORITHM
     )
