@@ -1,36 +1,31 @@
 # Session Handoff
 
-This file is used to continue development seamlessly across sessions.
-
----
-
-# Last Updated
-
-2026-06-10
-
----
-
-# Last Completed Task
-
-Successfully deployed PostgreSQL using Docker and verified SQLAlchemy connectivity.
+Last Updated: 2026-06-10
 
 ---
 
 # Current Sprint
 
-Sprint 1
+Sprint 2
 
 ---
 
 # Current Day
 
-Day 5
+Day 1
 
 ---
 
-# Current Focus
+# Last Completed Task
 
-Database Schema Management
+Successfully generated and applied Alembic migration.
+
+Verified:
+
+* users table exists
+* alembic_version table exists
+
+using PostgreSQL CLI.
 
 ---
 
@@ -40,108 +35,105 @@ Completed:
 
 ✓ FastAPI Setup
 
-✓ Swagger UI
-
 ✓ Configuration System
 
-✓ Environment Variables
-
-✓ Logging
+✓ Logging System
 
 ✓ Docker Setup
 
-✓ PostgreSQL Container
+✓ PostgreSQL Setup
 
-✓ SQLAlchemy Engine
+✓ SQLAlchemy Setup
 
-✓ Database Connection Validation
+✓ Database Connectivity Verification
 
----
+✓ Alembic Configuration
 
-# Current Database
+✓ First Migration
 
-Database:
-eka_db
+✓ User Model
 
-Container:
-eka_postgres
+✓ User Table
 
-Status:
-Healthy
+✓ Database Verification
 
 ---
 
-# Current Branch
+# Current Blocker
 
-main
+Password hashing test failing.
+
+Installed Packages:
+
+bcrypt==5.0.0
+
+passlib==1.7.4
+
+Known compatibility issue between these versions.
+
+---
+
+# Current Authentication Structure
+
+app/
+
+* api/auth.py
+* schemas/user.py
+* schemas/auth.py
+* services/auth_service.py
+* core/security.py
+
+Files exist but are not fully implemented yet.
 
 ---
 
 # Next Immediate Task
 
-Configure Alembic
+Resolve bcrypt compatibility issue.
 
-Steps:
+Then:
 
-1. Initialize Alembic
-2. Configure alembic.ini
-3. Configure env.py
-4. Connect SQLAlchemy metadata
-5. Generate initial migration
-6. Apply migration
-
----
-
-# Upcoming Tasks
-
-1. User Model
-2. User Table
-3. Authentication Schema
-4. Password Hashing
-5. JWT Authentication
+1. Validate hash_password()
+2. Validate verify_password()
+3. Validate create_access_token()
+4. Build authentication schemas
+5. Build authentication service
+6. Create register endpoint
+7. Create login endpoint
 
 ---
 
-# Important Notes
-
-The project follows:
-
-* FastAPI
-* SQLAlchemy 2.0
-* PostgreSQL
-* Docker
-
-Architecture style:
+# Important Architecture Rules
 
 API Layer
-→ Service Layer
-→ Database Layer
 
-Business logic must remain inside services and not API routes.
+↓
 
----
+Service Layer
 
-# Resume Context
+↓
 
-This project is intended to be:
+Database Layer
 
-* Production-grade
-* Portfolio-worthy
-* Resume-worthy
-* Demonstrative of Machine Learning Engineering skills
+Business logic must never live in route files.
 
-Every architectural decision should prioritize scalability and maintainability.
+Authentication logic belongs inside services/auth_service.py.
+
+Security utilities belong inside core/security.py.
 
 ---
 
-# Resume Command For Future Sessions
+# Resume Command
 
-If starting a new chat, provide:
+In a new chat:
 
-00_PROJECT_STATUS.md
+Paste:
 
-and
+1. CURRENT_SPRINT.md
+2. SESSION_HANDOFF.md
 
-SESSION_HANDOFF.md
+Then say:
 
-Then continue from the "Next Immediate Task" section.
+"Continue from the current sprint."
+
+This should be sufficient to resume development.
