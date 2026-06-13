@@ -2,7 +2,11 @@ from datetime import datetime
 from uuid import uuid4
 
 from sqlalchemy import String, DateTime
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import (
+    Mapped,
+    mapped_column,
+    relationship,
+)
 
 from app.db.base import Base
 
@@ -36,4 +40,10 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.utcnow
+    )
+
+    documents = relationship(
+        "Document",
+        back_populates="owner",
+        cascade="all, delete-orphan"
     )

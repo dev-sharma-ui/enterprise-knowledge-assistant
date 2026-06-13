@@ -233,3 +233,50 @@ The project is intended to demonstrate production-grade engineering practices.
 Goal:
 
 Scalable architecture supporting thousands of lines of code without major refactoring.
+
+# ADR-011
+
+Title:
+Support Enterprise Authorization and Knowledge Visibility
+
+Status:
+Accepted
+
+Reason:
+
+An Enterprise Knowledge Assistant must support controlled access to documents and retrieved knowledge.
+
+Not all documents should be visible to all users.
+
+Examples:
+
+* HR Policies
+* Financial Reports
+* Engineering SOPs
+* Executive Documents
+
+Each category may have different access requirements.
+
+Decision:
+
+The system will introduce authorization and visibility controls early in the architecture.
+
+Future entities will support:
+
+* User Roles
+* Departments
+* Document Visibility
+* Access Policies
+
+However, the project will initially implement a simplified single-organization architecture and progressively evolve toward full enterprise authorization.
+
+Benefits:
+
+* More realistic enterprise design
+* Better interview discussion points
+* Future support for role-based retrieval
+* Future support for authorization-aware RAG
+
+Consequences:
+
+Additional schema fields and relationships will be introduced in future sprints.

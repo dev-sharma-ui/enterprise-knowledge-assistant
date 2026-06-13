@@ -2,28 +2,41 @@
 
 ## Sprint
 
-Sprint 2
+Sprint 3
 
 ## Sprint Name
 
-Authentication Foundation
+Knowledge Repository Foundation
 
 ---
 
 # Sprint Goal
 
-Build a production-grade authentication system using:
+Build the foundational enterprise knowledge repository that future document processing, embedding generation, retrieval, authorization, and RAG pipelines will use.
 
-* FastAPI
-* PostgreSQL
-* SQLAlchemy
-* JWT
-* Password Hashing
-* Dependency Injection
+This sprint is NOT focused on building a complete enterprise IAM or RBAC system.
+
+This sprint is focused on designing a future-proof document architecture that supports:
+
+* Document Storage
+* Metadata Management
+* Processing Lifecycle Tracking
+* Future Authorization
+* Future Retrieval Pipelines
 
 ---
 
-# Completed
+# Previous Sprint
+
+Sprint 2
+
+Authentication Foundation
+
+Status: COMPLETED
+
+---
+
+# Completed Features
 
 Infrastructure
 
@@ -37,91 +50,175 @@ Infrastructure
 
 ✓ Alembic
 
-✓ User Table
+✓ User Model
+
+✓ Authentication System
+
+✓ Registration
+
+✓ Login
+
+✓ JWT Authentication
+
+✓ Protected Routes
+
+✓ Current User Dependency
 
 ---
 
-# Current Blocker
+# Architectural Direction
 
-bcrypt 5.0.0
+The project is evolving toward a true Enterprise Knowledge Assistant.
 
-passlib 1.7.4
+Future versions will support:
 
-Compatibility issue preventing password hashing.
+* Enterprise Knowledge Bases
+* Authorization-Aware Retrieval
+* Role-Based Access
+* Department-Level Access
+* Document Visibility Controls
+
+However, Sprint 3 intentionally focuses on repository foundations rather than full enterprise authorization.
 
 ---
 
 # Current Task
 
-Fix password hashing stack.
+Design and implement the document repository layer.
 
 ---
 
-# Immediate Next Tasks
+# Sprint Deliverables
 
-1. Resolve bcrypt issue
-2. Test password hashing
-3. Test password verification
-4. Test JWT creation
-5. Create schemas
-6. Create auth service
-7. Create register endpoint
-8. Create login endpoint
+## Database
 
----
+* Document Model
+* User ↔ Document Relationship
+* Visibility Field
+* Processing Status Field
+* Alembic Migration
 
-# Important Commands
+## Schemas
 
-Start PostgreSQL:
+* DocumentCreate
+* DocumentResponse
+* DocumentListResponse
 
-docker compose up -d
+## Services
 
-Run FastAPI:
+* Document Service Layer
 
-uvicorn app.main:app --reload
+## API
 
-Generate Migration:
+POST /documents/upload
 
-alembic revision --autogenerate -m "message"
+GET /documents
 
-Apply Migration:
+GET /documents/{document_id}
 
-alembic upgrade head
-
-Check PostgreSQL:
-
-docker exec -it eka_postgres psql -U postgres -d eka_db
+DELETE /documents/{document_id}
 
 ---
 
-# Important Files
+# Document Fields Planned
 
-app/core/config.py
-
-app/core/logger.py
-
-app/core/security.py
-
-app/db/session.py
-
-app/models/user.py
-
-alembic/env.py
+* id
+* title
+* original_filename
+* stored_filename
+* file_path
+* file_size
+* content_type
+* uploaded_by
+* visibility
+* status
+* created_at
+* updated_at
 
 ---
 
-# Definition of Done
+# Visibility Options
 
-Sprint completes only when:
+private
 
-✓ Register endpoint works
+organization
 
-✓ Login endpoint works
+---
 
-✓ JWT generated
+# Processing Status Options
 
-✓ Passwords hashed
+uploaded
 
-✓ Protected endpoint works
+processing
 
-✓ Current user dependency works
+processed
+
+failed
+
+---
+
+# Why These Fields Exist
+
+visibility:
+
+Future support for enterprise authorization.
+
+status:
+
+Future support for:
+
+PDF Parsing
+
+Chunking
+
+Embeddings
+
+Qdrant Indexing
+
+RAG Processing
+
+without schema redesign.
+
+---
+
+# Future Pipeline
+
+Document Upload
+↓
+Text Extraction
+↓
+Chunking
+↓
+Embeddings
+↓
+Qdrant
+↓
+Hybrid Retrieval
+↓
+Re-ranking
+↓
+RAG Response
+
+---
+
+# Definition Of Done
+
+Sprint 3 completes only when:
+
+✓ Document model exists
+
+✓ User relationship exists
+
+✓ Migration applied
+
+✓ Upload endpoint works
+
+✓ Metadata stored
+
+✓ Document listing works
+
+✓ Document retrieval works
+
+✓ Processing status tracked
+
+✓ Visibility field implemented

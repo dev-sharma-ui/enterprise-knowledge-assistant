@@ -1,139 +1,205 @@
-# Session Handoff
+# SESSION HANDOFF
 
-Last Updated: 2026-06-10
+Last Updated: 2026-06-11
 
 ---
 
 # Current Sprint
 
+Sprint 3
+
+Knowledge Repository Foundation
+
+---
+
+# Last Completed Sprint
+
 Sprint 2
 
----
+Authentication Foundation
 
-# Current Day
-
-Day 1
+Status: COMPLETED
 
 ---
 
-# Last Completed Task
+# Last Completed Features
 
-Successfully generated and applied Alembic migration.
+Authentication System
 
-Verified:
+Verified Working:
 
-* users table exists
-* alembic_version table exists
+✓ User Registration
 
-using PostgreSQL CLI.
+✓ User Login
 
----
+✓ Password Hashing
 
-# Current State
+✓ Password Verification
 
-Completed:
+✓ JWT Token Generation
 
-✓ FastAPI Setup
+✓ JWT Token Validation
 
-✓ Configuration System
+✓ Protected Routes
 
-✓ Logging System
+✓ Current User Dependency
 
-✓ Docker Setup
-
-✓ PostgreSQL Setup
-
-✓ SQLAlchemy Setup
-
-✓ Database Connectivity Verification
-
-✓ Alembic Configuration
-
-✓ First Migration
-
-✓ User Model
-
-✓ User Table
-
-✓ Database Verification
+✓ User Profile Endpoint
 
 ---
 
-# Current Blocker
+# Verification Evidence
 
-Password hashing test failing.
+GET /users/me
 
-Installed Packages:
+returns authenticated user information successfully.
 
-bcrypt==5.0.0
-
-passlib==1.7.4
-
-Known compatibility issue between these versions.
+Authentication flow verified end-to-end.
 
 ---
 
-# Current Authentication Structure
+# Current Database Status
 
-app/
+Database:
 
-* api/auth.py
-* schemas/user.py
-* schemas/auth.py
-* services/auth_service.py
-* core/security.py
+eka_db
 
-Files exist but are not fully implemented yet.
+Container:
+
+eka_postgres
+
+Status:
+
+Healthy
+
+---
+
+# Existing Tables
+
+users
+
+alembic_version
+
+---
+
+# Existing Architecture
+
+API Layer
+↓
+Service Layer
+↓
+Database Layer
+
+Business logic remains inside services.
+
+Routes remain thin.
+
+---
+
+# Important Architectural Decision
+
+The project is moving toward a true Enterprise Knowledge Assistant.
+
+Future versions will support:
+
+* Role-Based Access
+* Department Access
+* Document Visibility Controls
+* Authorization-Aware Retrieval
+
+However:
+
+Sprint 3 is intentionally NOT implementing full RBAC.
+
+Sprint 3 focuses on creating a future-proof document repository foundation.
+
+---
+
+# Current Focus
+
+Document Repository Foundation
 
 ---
 
 # Next Immediate Task
 
-Resolve bcrypt compatibility issue.
+Design Document Model
 
-Then:
+Required Fields:
 
-1. Validate hash_password()
-2. Validate verify_password()
-3. Validate create_access_token()
-4. Build authentication schemas
-5. Build authentication service
-6. Create register endpoint
-7. Create login endpoint
+* id
+* title
+* original_filename
+* stored_filename
+* file_path
+* file_size
+* content_type
+* uploaded_by
+* visibility
+* status
+* created_at
+* updated_at
 
 ---
 
-# Important Architecture Rules
+# Expected Future Features
 
-API Layer
+Sprint 4
 
-↓
+Document Processing
 
-Service Layer
+* PDF Parsing
+* Text Extraction
+* Metadata Extraction
 
-↓
+Sprint 5
 
-Database Layer
+Chunking Pipeline
 
-Business logic must never live in route files.
+Sprint 6
 
-Authentication logic belongs inside services/auth_service.py.
+Embedding Pipeline
 
-Security utilities belong inside core/security.py.
+Sprint 7
+
+Qdrant Integration
+
+Sprint 8
+
+Hybrid Retrieval
+
+Sprint 9
+
+RAG Engine
+
+---
+
+# Important Design Constraint
+
+Every schema decision made in Sprint 3 must support future:
+
+* Authorization
+* Retrieval
+* Chunking
+* Embedding
+* Vector Search
+
+without requiring major database redesign.
 
 ---
 
 # Resume Command
 
-In a new chat:
+To continue development:
 
-Paste:
+Attach:
 
-1. CURRENT_SPRINT.md
-2. SESSION_HANDOFF.md
+CURRENT_SPRINT.md
 
-Then say:
+SESSION_HANDOFF.md
 
-"Continue from the current sprint."
+02_DECISIONS.md
 
-This should be sufficient to resume development.
+Then continue from:
+
+"Next Immediate Task"
