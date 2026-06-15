@@ -15,10 +15,6 @@ class DocumentContentService:
 
         db.add(content)
 
-        db.commit()
-
-        db.refresh(content)
-
         return content
 
     @staticmethod

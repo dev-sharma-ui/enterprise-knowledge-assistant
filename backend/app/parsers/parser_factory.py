@@ -11,6 +11,12 @@ class ParserFactory:
         "text/plain": TXTParser(),
     }
 
+    _extraction_methods = {
+        "application/pdf": "pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+        "text/plain": "txt",
+    }
+
     @classmethod
     def get_parser(
         cls,
@@ -24,5 +30,22 @@ class ParserFactory:
             )
 
         return parser
-    
-    
+
+    @classmethod
+    def get_extraction_method(
+        cls,
+        content_type: str
+    ) -> str:
+
+        extraction_method = (
+            cls._extraction_methods.get(
+                content_type
+            )
+        )
+
+        if extraction_method is None:
+            raise ValueError(
+                f"Unsupported content type: {content_type}"
+            )
+
+        return extraction_method

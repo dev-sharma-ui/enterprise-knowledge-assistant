@@ -10,6 +10,7 @@ from app.models.enums import (
 
 class DocumentResponse(BaseModel):
     id: str
+
     title: str
 
     original_filename: str
@@ -38,5 +39,18 @@ class DocumentUploadResponse(BaseModel):
 
     document: DocumentResponse
 
+
 class DocumentDeleteResponse(BaseModel):
     message: str
+
+
+class DocumentProcessingResponse(BaseModel):
+    message: str
+
+    document: DocumentResponse
+
+    character_count: int
+
+    word_count: int
+
+    extraction_method: str

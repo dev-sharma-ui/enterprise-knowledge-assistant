@@ -7,9 +7,7 @@ from fastapi import (
     UploadFile,
     status,
 )
-from app.schemas.document import (
-    DocumentDeleteResponse
-)
+
 from sqlalchemy.orm import Session
 
 from app.api.dependencies import get_current_user
@@ -25,11 +23,18 @@ from app.models.user import User
 from app.schemas.document import (
     DocumentResponse,
     DocumentUploadResponse,
+    DocumentDeleteResponse,
+    DocumentProcessingResponse,
 )
 
 from app.services.document_service import (
     DocumentService,
 )
+
+from app.services.document_processing_service import (
+    DocumentProcessingService,
+)
+
 from app.services.file_service import (
     FileService,
 )
@@ -122,7 +127,8 @@ def upload_document(
             status_code=500,
             detail="Failed to upload document"
         )
-    
+
+
 @router.get(
     "/{document_id}",
     response_model=DocumentResponse
@@ -151,6 +157,71 @@ def get_document(
         )
 
     return document
+
+
+@router.post(
+    "/{document_id}/process",
+    response_model=DocumentProcessingResponse
+)
+def process_document(
+    document_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(
+        get_current_user
+    )
+):
+
+    document = (
+        DocumentService.get_user_document(
+            db,
+            document_id,
+            current_user.id
+        )
+    )
+
+    if not document:
+
+        raise HTTPException(
+            status_code=404,
+            detail="Document not found"
+        )
+
+    try:
+
+        content = (
+            DocumentProcessingService
+            .process_document(
+                db,
+                document
+            )
+        )
+
+        db.refresh(document)
+
+        return {
+            "message":
+                "Document processed successfully",
+
+            "document":
+                document,
+
+            "character_count":
+                content.character_count,
+
+            "word_count":
+                content.word_count,
+
+            "extraction_method":
+                content.extraction_method,
+        }
+
+    except Exception:
+
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to process document"
+        )
+
 
 @router.delete(
     "/{document_id}",

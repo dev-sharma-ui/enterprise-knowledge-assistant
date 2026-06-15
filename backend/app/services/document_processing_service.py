@@ -3,12 +3,11 @@ from pathlib import Path
 from sqlalchemy.orm import Session
 
 from app.models.document import Document
-from app.models.enums import (
-    DocumentStatus
-)
-
 from app.models.document_content import (
     DocumentContent
+)
+from app.models.enums import (
+    DocumentStatus
 )
 
 from app.parsers.parser_factory import (
@@ -28,13 +27,21 @@ class DocumentProcessingService:
         document: Document
     ) -> DocumentContent:
 
+        existing_content = (
+            DocumentContentService.get_by_document_id(
+                db,
+                document.id
+            )
+        )
+
+        if existing_content:
+            return existing_content
+
         try:
 
             document.status = (
                 DocumentStatus.PROCESSING
             )
-
-            db.commit()
 
             file_path = Path(
                 document.file_path
@@ -57,10 +64,13 @@ class DocumentProcessingService:
                     str(file_path)
                 )
             )
+
             if not raw_text.strip():
+
                 raise ValueError(
                     "Document contains no extractable text."
                 )
+
             content = DocumentContent(
                 document_id=document.id,
 
@@ -74,13 +84,15 @@ class DocumentProcessingService:
                     raw_text.split()
                 ),
 
-                extraction_method=
-                document.content_type
+                extraction_method=(
+                    ParserFactory.get_extraction_method(
+                        document.content_type
+                    )
+                )
             )
 
             saved_content = (
-                DocumentContentService
-                .create_content(
+                DocumentContentService.create_content(
                     db,
                     content
                 )
@@ -91,14 +103,20 @@ class DocumentProcessingService:
             )
 
             db.commit()
+            db.refresh(document)
+            db.refresh(saved_content)
 
             return saved_content
 
         except Exception:
 
+            db.rollback()
+
             document.status = (
                 DocumentStatus.FAILED
             )
+
+            db.add(document)
 
             db.commit()
 
