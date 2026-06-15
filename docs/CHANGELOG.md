@@ -1,90 +1,62 @@
-# Changelog
+# Version 0.3.0
 
-All notable changes to this project will be documented here.
-
----
-
-# Version 0.1.0
-
-Date: 2026-06-10
+Date: 2026-06-12
 
 ## Added
 
-### Repository
+### Knowledge Repository
 
-* Git repository initialized
-* GitHub repository connected
+* Document model
+* Document visibility support
+* Processing status support
+* User-document relationship
+* Upload endpoint
+* Listing endpoint
+* Retrieval endpoint
+* Delete endpoint
 
-### Project Structure
+### File Storage
 
-* Backend structure created
-* Frontend structure created
-* Infrastructure structure created
-* Documentation structure created
+* Local file storage
+* Unique filename generation
+* File lifecycle management
 
-### FastAPI
+### Services
 
-* FastAPI installed
-* Uvicorn configured
-* Swagger UI enabled
-* Root endpoint created
-* Health endpoint created
-
-### Configuration
-
-* Environment variable management
-* Pydantic Settings integration
-* Configuration module
-
-### Logging
-
-* Logging module
-* Application startup logging
-
-### Database
-
-* PostgreSQL Docker container
-* Docker Compose configuration
-* SQLAlchemy engine
-* Session management
-* Database connectivity validation
-
----
-
-## Fixed
-
-### Docker
-
-* Docker engine startup issue resolved
-
-### Python Imports
-
-* Module import path issue resolved during database connectivity testing
+* Document service layer
+* File service layer
 
 ---
 
 ## Verified
 
-* FastAPI running successfully
-* PostgreSQL healthy
-* SQLAlchemy connected
-* Docker operational
+* Upload workflow operational
+* Metadata persistence operational
+* File persistence operational
+* Ownership validation operational
+* JWT integration operational
+* Processing status lifecycle operational
 
 ---
 
 ## Current Version
 
-0.1.0
+0.3.0
 
 ---
 
-## Next Version Goals
+## Next Version Goal
 
-0.2.0
+0.4.0
+
+Document Processing Foundation
 
 Features Planned:
 
-* Alembic migrations
-* User model
-* Base database schema
-* Authentication foundation
+* DocumentContent model
+* PDF parsing
+* DOCX parsing
+* TXT parsing
+* Raw text storage
+* Processing service
+* Processing lifecycle

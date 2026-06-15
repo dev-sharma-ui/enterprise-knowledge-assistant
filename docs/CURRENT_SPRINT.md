@@ -2,35 +2,27 @@
 
 ## Sprint
 
-Sprint 3
+Sprint 4
 
 ## Sprint Name
 
-Knowledge Repository Foundation
+Document Processing Foundation
 
 ---
 
 # Sprint Goal
 
-Build the foundational enterprise knowledge repository that future document processing, embedding generation, retrieval, authorization, and RAG pipelines will use.
+Transform uploaded documents into extracted text that can be used by future chunking, embedding, retrieval, and RAG pipelines.
 
-This sprint is NOT focused on building a complete enterprise IAM or RBAC system.
-
-This sprint is focused on designing a future-proof document architecture that supports:
-
-* Document Storage
-* Metadata Management
-* Processing Lifecycle Tracking
-* Future Authorization
-* Future Retrieval Pipelines
+Sprint 4 establishes the bridge between document storage and intelligent document understanding.
 
 ---
 
 # Previous Sprint
 
-Sprint 2
+Sprint 3
 
-Authentication Foundation
+Knowledge Repository Foundation
 
 Status: COMPLETED
 
@@ -50,9 +42,7 @@ Infrastructure
 
 ✓ Alembic
 
-✓ User Model
-
-✓ Authentication System
+Authentication
 
 ✓ Registration
 
@@ -62,29 +52,31 @@ Infrastructure
 
 ✓ Protected Routes
 
-✓ Current User Dependency
+Knowledge Repository
+
+✓ Document Model
+
+✓ Document Upload
+
+✓ Document Listing
+
+✓ Document Retrieval
+
+✓ Document Deletion
+
+✓ Metadata Persistence
+
+✓ Ownership Validation
+
+✓ Visibility Support
+
+✓ Processing Status Tracking
 
 ---
 
-# Architectural Direction
+# Current Objective
 
-The project is evolving toward a true Enterprise Knowledge Assistant.
-
-Future versions will support:
-
-* Enterprise Knowledge Bases
-* Authorization-Aware Retrieval
-* Role-Based Access
-* Department-Level Access
-* Document Visibility Controls
-
-However, Sprint 3 intentionally focuses on repository foundations rather than full enterprise authorization.
-
----
-
-# Current Task
-
-Design and implement the document repository layer.
+Build the Document Processing Layer.
 
 ---
 
@@ -92,133 +84,97 @@ Design and implement the document repository layer.
 
 ## Database
 
-* Document Model
-* User ↔ Document Relationship
-* Visibility Field
-* Processing Status Field
-* Alembic Migration
+DocumentContent Model
 
-## Schemas
-
-* DocumentCreate
-* DocumentResponse
-* DocumentListResponse
-
-## Services
-
-* Document Service Layer
-
-## API
-
-POST /documents/upload
-
-GET /documents
-
-GET /documents/{document_id}
-
-DELETE /documents/{document_id}
-
----
-
-# Document Fields Planned
+Fields:
 
 * id
-* title
-* original_filename
-* stored_filename
-* file_path
-* file_size
-* content_type
-* uploaded_by
-* visibility
-* status
+* document_id
+* raw_text
+* character_count
+* word_count
 * created_at
 * updated_at
 
 ---
 
-# Visibility Options
+## Services
 
-private
+DocumentProcessingService
 
-organization
+Responsibilities:
+
+* Text Extraction
+* Processing Lifecycle
+* Error Handling
+* Status Updates
 
 ---
 
-# Processing Status Options
+## Supported Formats
+
+* PDF
+* DOCX
+* TXT
+
+---
+
+## Processing Workflow
 
 uploaded
-
+↓
 processing
-
+↓
 processed
 
+or
+
+uploaded
+↓
+processing
+↓
 failed
-
----
-
-# Why These Fields Exist
-
-visibility:
-
-Future support for enterprise authorization.
-
-status:
-
-Future support for:
-
-PDF Parsing
-
-Chunking
-
-Embeddings
-
-Qdrant Indexing
-
-RAG Processing
-
-without schema redesign.
 
 ---
 
 # Future Pipeline
 
-Document Upload
+documents
 ↓
-Text Extraction
+document_contents
 ↓
-Chunking
+document_chunks
 ↓
-Embeddings
+embeddings
 ↓
-Qdrant
+qdrant
 ↓
-Hybrid Retrieval
+retrieval
 ↓
-Re-ranking
-↓
-RAG Response
+rag
 
 ---
 
 # Definition Of Done
 
-Sprint 3 completes only when:
-
-✓ Document model exists
-
-✓ User relationship exists
+✓ DocumentContent model exists
 
 ✓ Migration applied
 
-✓ Upload endpoint works
+✓ Text extraction implemented
 
-✓ Metadata stored
+✓ PDF support implemented
 
-✓ Document listing works
+✓ DOCX support implemented
 
-✓ Document retrieval works
+✓ TXT support implemented
 
-✓ Processing status tracked
+✓ Raw text stored
 
-✓ Visibility field implemented
+✓ Character count stored
+
+✓ Word count stored
+
+✓ Processing status updated
+
+✓ Failed processing tracked

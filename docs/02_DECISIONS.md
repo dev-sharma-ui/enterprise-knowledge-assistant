@@ -280,3 +280,77 @@ Benefits:
 Consequences:
 
 Additional schema fields and relationships will be introduced in future sprints.
+
+
+
+# ADR-012
+
+Title:
+Store Extracted Raw Text Before Chunking
+
+Status:
+Accepted
+
+Reason:
+
+Many Retrieval-Augmented Generation systems directly parse a document and immediately generate chunks.
+
+This approach tightly couples document parsing and chunk generation, making future improvements difficult.
+
+Examples:
+
+* Changing chunking strategies
+* Adding metadata extraction
+* Adding summarization
+* Adding OCR
+* Re-processing documents
+
+would require reopening and reprocessing original files repeatedly.
+
+Decision:
+
+The system will introduce a dedicated DocumentContent layer.
+
+Pipeline:
+
+Document
+↓
+Text Extraction
+↓
+DocumentContent
+↓
+Chunking
+↓
+Embeddings
+↓
+Vector Database
+
+The extracted raw text will be stored permanently in the database.
+
+Future chunking and embedding systems will operate on stored text rather than reopening original files.
+
+Benefits:
+
+* Separation of concerns
+* Easier reprocessing
+* Faster experimentation
+* Better maintainability
+* Cleaner architecture
+* Reduced duplicate processing
+
+Consequences:
+
+Additional storage requirements for extracted text.
+
+However, the architectural benefits outweigh the storage cost.
+
+Future Impact:
+
+Supports:
+
+* Multiple chunking strategies
+* Metadata extraction
+* Summarization
+* OCR integration
+* Authorization-aware retrieval
+* Re-indexing without re-reading files

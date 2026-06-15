@@ -97,3 +97,11 @@ class Document(Base):
         "User",
         back_populates="documents"
     )
+
+    document_content = relationship(
+    "DocumentContent",
+    back_populates="document",
+    cascade="all, delete-orphan",
+    uselist=False
+    )
+    

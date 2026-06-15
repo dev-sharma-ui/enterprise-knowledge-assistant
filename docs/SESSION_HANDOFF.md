@@ -1,88 +1,74 @@
 # SESSION HANDOFF
 
-Last Updated: 2026-06-11
+Last Updated: 2026-06-12
 
 ---
 
 # Current Sprint
 
-Sprint 3
+Sprint 4
 
-Knowledge Repository Foundation
+Document Processing Foundation
 
 ---
 
 # Last Completed Sprint
 
-Sprint 2
+Sprint 3
 
-Authentication Foundation
+Knowledge Repository Foundation
 
 Status: COMPLETED
 
 ---
 
-# Last Completed Features
+# Verified Features
 
-Authentication System
+Authentication
 
-Verified Working:
+✓ Registration
 
-✓ User Registration
+✓ Login
 
-✓ User Login
-
-✓ Password Hashing
-
-✓ Password Verification
-
-✓ JWT Token Generation
-
-✓ JWT Token Validation
+✓ JWT Authentication
 
 ✓ Protected Routes
 
 ✓ Current User Dependency
 
-✓ User Profile Endpoint
+Knowledge Repository
+
+✓ Upload API
+
+✓ List API
+
+✓ Retrieve API
+
+✓ Delete API
+
+✓ Metadata Storage
+
+✓ File Storage
+
+✓ Ownership Validation
+
+✓ Visibility Support
+
+✓ Processing Status Tracking
 
 ---
 
-# Verification Evidence
-
-GET /users/me
-
-returns authenticated user information successfully.
-
-Authentication flow verified end-to-end.
-
----
-
-# Current Database Status
-
-Database:
-
-eka_db
-
-Container:
-
-eka_postgres
-
-Status:
-
-Healthy
-
----
-
-# Existing Tables
+# Current Database Tables
 
 users
+
+documents
 
 alembic_version
 
 ---
 
-# Existing Architecture
+# Current Architecture
 
 API Layer
 ↓
@@ -96,65 +82,57 @@ Routes remain thin.
 
 ---
 
-# Important Architectural Decision
+# Sprint 4 Focus
 
-The project is moving toward a true Enterprise Knowledge Assistant.
-
-Future versions will support:
-
-* Role-Based Access
-* Department Access
-* Document Visibility Controls
-* Authorization-Aware Retrieval
-
-However:
-
-Sprint 3 is intentionally NOT implementing full RBAC.
-
-Sprint 3 focuses on creating a future-proof document repository foundation.
-
----
-
-# Current Focus
-
-Document Repository Foundation
+Document Processing Foundation
 
 ---
 
 # Next Immediate Task
 
-Design Document Model
+Design DocumentContent Model.
 
-Required Fields:
+Expected Fields:
 
 * id
-* title
-* original_filename
-* stored_filename
-* file_path
-* file_size
-* content_type
-* uploaded_by
-* visibility
-* status
+* document_id
+* raw_text
+* character_count
+* word_count
 * created_at
 * updated_at
 
 ---
 
-# Expected Future Features
+# Future Architecture
 
-Sprint 4
+documents
+↓
+document_contents
+↓
+document_chunks
+↓
+document_embeddings
+↓
+qdrant
 
-Document Processing
+---
 
-* PDF Parsing
-* Text Extraction
-* Metadata Extraction
+# Important Design Constraint
+
+Raw text must be extracted once and stored permanently.
+
+Future chunking and embedding systems should operate on stored text rather than reopening original documents.
+
+This prevents duplicated processing and simplifies future pipelines.
+
+---
+
+# Future Sprints
 
 Sprint 5
 
-Chunking Pipeline
+Chunking Engine
 
 Sprint 6
 
@@ -170,36 +148,12 @@ Hybrid Retrieval
 
 Sprint 9
 
+Cross Encoder Re-ranking
+
+Sprint 10
+
 RAG Engine
 
----
+Sprint 11
 
-# Important Design Constraint
-
-Every schema decision made in Sprint 3 must support future:
-
-* Authorization
-* Retrieval
-* Chunking
-* Embedding
-* Vector Search
-
-without requiring major database redesign.
-
----
-
-# Resume Command
-
-To continue development:
-
-Attach:
-
-CURRENT_SPRINT.md
-
-SESSION_HANDOFF.md
-
-02_DECISIONS.md
-
-Then continue from:
-
-"Next Immediate Task"
+Memory + Citations + Hallucination Detection
