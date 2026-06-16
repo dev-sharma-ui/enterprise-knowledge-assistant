@@ -1,0 +1,5 @@
+Hello Sprint 4
+
+This is a document processing test.
+
+We are testing raw text extraction.
